@@ -1,0 +1,465 @@
+[
+    {
+        "id": "d8ca6a95.62ea88",
+        "type": "tab",
+        "label": "Tuya-Switch",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9cda053e.84d278",
+        "type": "mqtt in",
+        "z": "d8ca6a95.62ea88",
+        "name": "Tuya 4 Button Switch",
+        "topic": "/home/zigbee/Tuya-01",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "595dfa51.2c1224",
+        "inputs": 0,
+        "x": 140,
+        "y": 320,
+        "wires": [
+            [
+                "275d149a.6ea5cc"
+            ]
+        ]
+    },
+    {
+        "id": "ec412fe9.d84c2",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 710,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "87d70fef.10638",
+        "type": "function",
+        "z": "d8ca6a95.62ea88",
+        "name": "",
+        "func": "var Knoten = \"Tuya-01\"\nvar click = msg.payload.action\nvar volt =  msg.payload.voltage/1000\nvar qual =  msg.payload.linkquality\nvar bat  =  msg.payload.battery\n\nmsg.payload = [{\n    Room: Knoten,\n    Click: click,\n    Volt: volt,\n    Qual: qual,\n    Bat: bat\n}]\nnode.status({fill:\"blue\",shape:\"ring\",text:\"Click: \" + click + \", Qual: \" + qual + \"%, Volt: \" + volt + \"V\" });\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 820,
+        "wires": [
+            [
+                "ec412fe9.d84c2"
+            ]
+        ]
+    },
+    {
+        "id": "275d149a.6ea5cc",
+        "type": "json",
+        "z": "d8ca6a95.62ea88",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 330,
+        "y": 320,
+        "wires": [
+            [
+                "87d70fef.10638",
+                "e74c2959.a23368",
+                "4f569ab0.6ba124",
+                "8bd8f0e3.063ce",
+                "a2834171.8e11"
+            ]
+        ]
+    },
+    {
+        "id": "1699bb6d.1146e5",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 1 Single",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "d65735cf.50ae78",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 1 Double",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e74c2959.a23368",
+        "type": "switch",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 1",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1_single",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1_double",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1_hold",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 520,
+        "y": 80,
+        "wires": [
+            [
+                "1699bb6d.1146e5"
+            ],
+            [
+                "d65735cf.50ae78"
+            ],
+            [
+                "21b63b51.539944"
+            ]
+        ]
+    },
+    {
+        "id": "21b63b51.539944",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 1 Hold",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "79ba8b44.39cb34",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 2 Single",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "61316655.5edd88",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 2 Double",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "4f569ab0.6ba124",
+        "type": "switch",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 2",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "2_single",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2_double",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2_hold",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 520,
+        "y": 280,
+        "wires": [
+            [
+                "79ba8b44.39cb34"
+            ],
+            [
+                "61316655.5edd88"
+            ],
+            [
+                "4c6d72c4.c8c4bc"
+            ]
+        ]
+    },
+    {
+        "id": "4c6d72c4.c8c4bc",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 2 Hold",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "8cadc18.d9a104",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 3 Single",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f25b5b6e.075478",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 3 Double",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "8bd8f0e3.063ce",
+        "type": "switch",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 3",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "3_single",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3_double",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3_hold",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 520,
+        "y": 480,
+        "wires": [
+            [
+                "8cadc18.d9a104"
+            ],
+            [
+                "f25b5b6e.075478"
+            ],
+            [
+                "cacb8f66.c5648"
+            ]
+        ]
+    },
+    {
+        "id": "cacb8f66.c5648",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 3 Hold",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "e347d923.1df218",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 4 Single",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "f95cdf44.36533",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 4 Double",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "a2834171.8e11",
+        "type": "switch",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 4",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "4_single",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4_double",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4_hold",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 520,
+        "y": 680,
+        "wires": [
+            [
+                "e347d923.1df218"
+            ],
+            [
+                "f95cdf44.36533"
+            ],
+            [
+                "eff9b568.5c1378"
+            ]
+        ]
+    },
+    {
+        "id": "eff9b568.5c1378",
+        "type": "debug",
+        "z": "d8ca6a95.62ea88",
+        "name": "Button 4 Hold",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 720,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "595dfa51.2c1224",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.123.16",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    }
+]
